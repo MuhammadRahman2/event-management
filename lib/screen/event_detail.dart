@@ -1,12 +1,11 @@
 import 'package:event/widgets/circle_container.dart';
 import 'package:event/widgets/container_button.dart';
 import 'package:flutter/material.dart';
-
 import 'confirm_seat.dart';
 
 class EventDetail extends StatelessWidget {
+  // String 
   const EventDetail({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

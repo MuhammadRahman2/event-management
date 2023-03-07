@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 
 class RepeatTextField extends StatelessWidget {
   final String? hint;
-  const RepeatTextField({super.key, this.hint});
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final String? Function(String?)? onSave;
+  const RepeatTextField({
+    super.key,
+    this.hint,
+    this.controller,
+    this.validator,
+    this.onSave,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      // decoration: BoxDecoration(
-      //     // color: Colors.grey.withOpacity(0.3),
-      //     borderRadius: BorderRadius.circular(8)),
+    return Padding(
+      padding: EdgeInsets.all(10),
       child: TextFormField(
+        controller: controller,
+        validator: validator,
         style: const TextStyle(fontWeight: FontWeight.bold),
         decoration: InputDecoration(
             hintText: hint,
@@ -24,7 +27,8 @@ class RepeatTextField extends StatelessWidget {
             filled: true,
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(10))),
+                borderRadius: BorderRadius.circular(10),),),
+        onSaved:onSave ,
       ),
     );
   }

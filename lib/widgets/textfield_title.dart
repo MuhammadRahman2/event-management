@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TextFieldTitle extends StatelessWidget {
+class TextTitle extends StatelessWidget {
   final String? title;
-  const TextFieldTitle({super.key,this.title});
+  
+  const TextTitle({super.key,this.title});
 
   @override
   Widget build(BuildContext context) {

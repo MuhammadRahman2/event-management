@@ -1,3 +1,4 @@
+import 'package:event/screen/authentication.dart';
 import 'package:event/screen/sign_in.dart';
 import 'package:event/screen/sign_up.dart';
 import 'package:event/widgets/circle_container.dart';
@@ -34,7 +35,7 @@ class SplashScreen extends StatelessWidget {
                   Image.asset(
                     'assets/images/scanner_hand.PNG',
                     width: 300,
-                    height: 185,
+                    height: 150,
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(
@@ -75,7 +76,7 @@ class SplashScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SignIn(),
+                          builder: (context) => const AuthenticationScreen(),
                         ),
                       );
                     },
