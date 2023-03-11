@@ -1,19 +1,32 @@
 import 'package:event/screen/qr_scanner.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import '../widgets/container_button.dart';
 import '../widgets/dropdown_textediting.dart';
 import '../widgets/circle_container.dart';
 import '../widgets/repeat_textfield.dart';
 
 class ConfirmSeat extends StatefulWidget {
+  final String nodeId;
+  ConfirmSeat({super.key, required this.nodeId});
   @override
   State<ConfirmSeat> createState() => _ConfirmSeatState();
 }
 
 class _ConfirmSeatState extends State<ConfirmSeat> {
+  final transationIdC = TextEditingController();
+  String paymentData = "";
   // const ConfirmSeat({super.key});
   String? dropDownValue;
   String? postCateg = 'post categor';
+
+  void generateQRCode() {
+    setState(() {
+      paymentData = firebaseAuth.currentUser!.uid;
+    });
+  }
 
   // List<Object> product = ['10/17/[PMS]'];
   // List<Object> product2 = ['1-PMS (General Quota)'];
@@ -43,6 +56,16 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
   //   'tenelor EasyPaise',
   //   'Jazz JazzCash',
   // ];
+  final firebaseAuth = FirebaseAuth.instance;
+  final databaseReference = FirebaseDatabase.instance.ref();
+
+  Future<void> sendPaymentDataToFirebase() async {
+    databaseReference
+        .child('user').child(widget.nodeId).child(firebaseAuth.currentUser!.uid)
+        .set({
+          'uId': firebaseAuth.currentUser!.uid,
+          'transationId': transationIdC.text}).then((value) {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +81,7 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
                 const SizedBox(
                   height: 50,
                 ),
+                Text(widget.nodeId),
                 const Align(
                   alignment: Alignment.center,
                   child: CircleAvatar(
@@ -113,8 +137,9 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
                       ),
                       const SizedBox(height: 10),
                       const Text('Transation ID'),
-                      const RepeatTextField(
+                      RepeatTextField(
                         hint: 'Transation id',
+                        controller: transationIdC,
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
@@ -153,11 +178,16 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
                 ContainerButton(
                   colors: const Color.fromRGBO(60, 195, 240, 1),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const QrScanner()));
+                    sendPaymentDataToFirebase();
+                    generateQRCode();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => QrScanner(paymentData: paymentData),),);
                   },
                   title: 'Confirm',
-                )
+                ),
+                
               ],
             ),
           )

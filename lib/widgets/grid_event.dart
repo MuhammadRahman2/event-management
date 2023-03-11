@@ -5,12 +5,14 @@ class GridEvent extends StatelessWidget {
   final String? ename;
   final String? date;
   final String? imageUrl;
+  final String nodeId;
   const GridEvent({
     Key? key,
     this.ename =
         'https://img.freepik.com/free-vector/music-event-poster-with-photo-2021_52683-42065.jpg?w=740&t=st=1675012054~exp=1675012654~hmac=321d065671621404a67c224d1b6c719c9546cec3a67b237ce708372b3f16668d',
     this.imageUrl,
     this.date,
+    required this.nodeId,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class GridEvent extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const EventDetail()));
+              MaterialPageRoute(builder: (context) =>  EventDetail(nodeId: nodeId,)));
         },
         child: Container(
           decoration: BoxDecoration(

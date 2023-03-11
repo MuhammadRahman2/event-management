@@ -98,10 +98,12 @@ class _DashBordState extends State<DashBord> {
                               List<dynamic> list = [];
                               list = map.values.toList();
                               return GridEvent(
-                                imageUrl:
-                                    'https://th.bing.com/th/id/R.189ef8e8dad399bcbfc12cfad8418d73?rik=b6XyNTKhpXTbJw&pid=ImgRaw&r=0',
-                                ename: list[index]['ename'],
-                                date: list[index]['edate'],
+                                nodeId: list[index]['node'],
+                                imageUrl:list[index]['imageURL'],
+                                ename: list[index]['name'],
+                                date: list[index]['date'],
+                                
+                                
                               );
 
                               // return ListTile(

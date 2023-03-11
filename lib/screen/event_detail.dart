@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'confirm_seat.dart';
 
 class EventDetail extends StatelessWidget {
-  // String 
-  const EventDetail({super.key});
+  final String nodeId;
+  const EventDetail({super.key, required this.nodeId});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +116,7 @@ class EventDetail extends StatelessWidget {
                     colors: const Color.fromRGBO(60, 195, 240, 1),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => ConfirmSeat()));
+                          MaterialPageRoute(builder: (_) => ConfirmSeat(nodeId: nodeId,)));
                     },
                     title: 'Register',
                   )
