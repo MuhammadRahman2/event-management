@@ -78,7 +78,7 @@ class _SignInState extends State<SignIn> {
                     // ),
 
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: TextFormField(
                         controller: emailC,
                         validator: (value) {
@@ -121,7 +121,7 @@ class _SignInState extends State<SignIn> {
                     // ),
 
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: TextFormField(
                         controller: passwordC,
                         obscureText: showPassword,
@@ -162,7 +162,7 @@ class _SignInState extends State<SignIn> {
               // ),
               // const Color.fromRGBO(60, 195, 240, 1),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

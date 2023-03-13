@@ -61,10 +61,24 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
 
   Future<void> sendPaymentDataToFirebase() async {
     databaseReference
-        .child('user').child(widget.nodeId).child(firebaseAuth.currentUser!.uid)
+        .child('user')
+        .child(widget.nodeId)
+        .child(firebaseAuth.currentUser!.uid)
         .set({
-          'uId': firebaseAuth.currentUser!.uid,
-          'transationId': transationIdC.text}).then((value) {});
+      'uId': firebaseAuth.currentUser!.uid,
+      'peymet_at': peymentInit,
+      'post_category': postCategoryInit,
+      'post_serail No': postSerialInit,
+      'transationId': transationIdC.text
+    }).then((value) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data is Add'),),);
+    });
+  }
+
+  @override
+  void dispose() {
+    transationIdC.dispose();
+    super.dispose();
   }
 
   @override
@@ -81,7 +95,7 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
                 const SizedBox(
                   height: 50,
                 ),
-                Text(widget.nodeId),
+              
                 const Align(
                   alignment: Alignment.center,
                   child: CircleAvatar(
@@ -145,7 +159,9 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green),
-                          onPressed: () {},
+                          onPressed: () {
+                    sendPaymentDataToFirebase();
+                          },
                           child: const Text('Apply'))
                     ],
                   ),
@@ -155,7 +171,7 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Column(
                     children: [
-                      const Text('Rs: 60'),
+                      const Text('Rs: 600'),
                       const Text(
                         'pay 3 Bills every months, Absolutely Free ❗',
                         textAlign: TextAlign.center,
@@ -178,16 +194,16 @@ class _ConfirmSeatState extends State<ConfirmSeat> {
                 ContainerButton(
                   colors: const Color.fromRGBO(60, 195, 240, 1),
                   onTap: () {
-                    sendPaymentDataToFirebase();
                     generateQRCode();
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => QrScanner(paymentData: paymentData),),);
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => QrScanner(paymentData: paymentData),
+                      ),
+                    );
                   },
                   title: 'Confirm',
                 ),
-                
               ],
             ),
           )

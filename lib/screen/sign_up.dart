@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
                           // ),
 
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                             child: TextFormField(
                               controller: usernameC,
                               validator: (value) {
@@ -115,7 +115,7 @@ class _SignUpState extends State<SignUp> {
                           //   },
                           // ),
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                             child: TextFormField(
                               controller: emailC,
                               validator: (value) {
@@ -157,7 +157,7 @@ class _SignUpState extends State<SignUp> {
                           // ),
 
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                             child: TextFormField(
                               controller: passwordC,
                               obscureText: _showPassword,
@@ -207,7 +207,7 @@ class _SignUpState extends State<SignUp> {
                           //   },
                           // ),
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                             child: TextFormField(
                               controller: comfirmPasswordC,
                               obscureText: _showConfirmPassword,

@@ -10,8 +10,6 @@ class QrScanner extends StatefulWidget {
 }
 
 class _QrScannerState extends State<QrScanner> {
-  
-
   // final databaseReference = FirebaseDatabase.instance.reference();
 
   // Future<void> sendPaymentDataToFirebase() async {
@@ -37,7 +35,7 @@ class _QrScannerState extends State<QrScanner> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // ElevatedButton(
             //   onPressed: () {
@@ -46,15 +44,22 @@ class _QrScannerState extends State<QrScanner> {
             //   },
             //   child: Text('Pay'),
             // ),
+            const SizedBox(height: 50),
+            const Text(
+              'QR Code',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(60, 195, 240, 1)),
+            ),
             const SizedBox(height: 20),
-            // paymentData.isNotEmpty
-            //     ? 
-                QrImage(
-                    data: widget.paymentData,
-                    version: QrVersions.auto,
-                    size: 200.0,
-                  )
-                // : SizedBox(),
+            //     ?
+            QrImage(
+              data: widget.paymentData,
+              version: QrVersions.auto,
+              size: 200.0,
+            )
+            // : SizedBox(),
           ],
         ),
       ),

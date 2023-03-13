@@ -4,8 +4,20 @@ import 'package:flutter/material.dart';
 import 'confirm_seat.dart';
 
 class EventDetail extends StatelessWidget {
-  final String nodeId;
-  const EventDetail({super.key, required this.nodeId});
+  final String? ename;
+  final String? date;
+  final String? endTime;
+  final String? startTime;
+  final String? imageUrl;
+  final String? description;
+  const EventDetail(
+      {super.key,
+      required this.ename,
+      required this.imageUrl,
+      required this.date,
+      required this.description,
+      required this.endTime,
+      required this.startTime});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +43,9 @@ class EventDetail extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    'Event Title WhatEver',
-                    style: TextStyle(
+                  Text(
+                    ename.toString(),
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Color.fromRGBO(60, 195, 240, 1)),
@@ -42,15 +54,15 @@ class EventDetail extends StatelessWidget {
                     height: 5,
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.35,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          'https://img.freepik.com/free-vector/music-event-poster-with-photo-2021_52683-42065.jpg?w=740&t=st=1675012054~exp=1675012654~hmac=321d065671621404a67c224d1b6c719c9546cec3a67b237ce708372b3f16668d',
+                          imageUrl.toString(),
                         ),
                       ),
                     ),
@@ -62,21 +74,25 @@ class EventDetail extends StatelessWidget {
                     'Description',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  const Text(
-                    '''A Little Night Musicsings and waltzes its way through the lives of mismatched couples who are about to make some very surprising.''',
+                  Text(
+                    description.toString(),
+                    // '''A Little Night Musicsings and waltzes its way through the lives of mismatched couples who are about to make some very surprising.''',
                     textAlign: TextAlign.justify,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       color: Color.fromARGB(255, 100, 97, 97),
                     ),
                   ),
-                  const Text(
-                    'Starting Time: 6:00 pm',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Starting Time: $date $startTime',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  const Text(
-                    'Ending Time: 10:00 pm',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Text(
+                    'Ending Time: $endTime',
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 5,
@@ -115,8 +131,12 @@ class EventDetail extends StatelessWidget {
                   ContainerButton(
                     colors: const Color.fromRGBO(60, 195, 240, 1),
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => ConfirmSeat(nodeId: nodeId,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => ConfirmSeat(
+                                    nodeId: ename.toString(),
+                                  )));
                     },
                     title: 'Register',
                   )

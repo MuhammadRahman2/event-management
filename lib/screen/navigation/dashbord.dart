@@ -98,10 +98,13 @@ class _DashBordState extends State<DashBord> {
                               List<dynamic> list = [];
                               list = map.values.toList();
                               return GridEvent(
-                                nodeId: list[index]['node'],
+                                // nodeId: list[index]['node'],
                                 imageUrl:list[index]['imageURL'],
                                 ename: list[index]['name'],
                                 date: list[index]['date'],
+                                endTime: list[index]['end_time'],
+                                startTime: list[index]['st_time'],
+                                description:list[index]['des'] ,
                                 
                                 
                               );
