@@ -1,3 +1,4 @@
+import 'package:event/screen/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -21,10 +22,13 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
               FirebaseAuth.instance
-                                .signOut()
-                                .then((value) => Navigator.pop(context));
+                  .signOut()
+                  .then((value) => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignIn()),
+                      ));
             },
             child: const Card(
               child: ListTile(
@@ -33,7 +37,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          
         ],
       ),
     );

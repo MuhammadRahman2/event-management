@@ -1,3 +1,4 @@
+import 'package:event/screen/home_screen.dart';
 import 'package:event/screen/navigation/dashbord.dart';
 import 'package:event/screen/sign_in.dart';
 import 'package:event/widgets/circle_container.dart';
@@ -63,16 +64,6 @@ class _SignUpState extends State<SignUp> {
                           const TextTitle(
                             title: 'Full Name',
                           ),
-                          // RepeatTextField(
-                          //   hint: 'Full Name',
-                          //   controller: usernameC,
-                          //   validator: (value) {
-                          //     if (value!.isEmpty) {
-                          //       return 'Full Name cannot be empty';
-                          //     }
-                          //     return '';
-                          //   },
-                          // ),
 
                           Padding(
                             padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -100,20 +91,6 @@ class _SignUpState extends State<SignUp> {
                           const TextTitle(
                             title: 'E-mail',
                           ),
-                          // RepeatTextField(
-                          //   hint: 'E-mail',
-                          //   controller: emailC,
-                          //   validator: (value) {
-                          //     if (value!.isEmpty || value.contains('@')) {
-                          //       return 'E-mail cannot empty or not email format';
-                          //     }
-                          //     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          //         .hasMatch(value)) {
-                          //       return 'Please enter a valid email address';
-                          //     }
-                          //     return '';
-                          //   },
-                          // ),
                           Padding(
                             padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                             child: TextFormField(
@@ -145,16 +122,6 @@ class _SignUpState extends State<SignUp> {
                           const TextTitle(
                             title: 'Password',
                           ),
-                          // RepeatTextField(
-                          //   hint: 'Password',
-                          //   controller: passwordC,
-                          //   validator: (value) {
-                          //     if (value!.length < 6) {
-                          //       return 'Password must be 6 charter';
-                          //     }
-                          //     return '';
-                          //   },
-                          // ),
 
                           Padding(
                             padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -196,16 +163,6 @@ class _SignUpState extends State<SignUp> {
                           const TextTitle(
                             title: 'ConFirm Password',
                           ),
-                          // RepeatTextField(
-                          //   hint: 'Confirm password',
-                          //   controller: comfirmPasswordC,
-                          //   validator: (value) {
-                          //     if (value!.length < 6) {
-                          //       return 'Password must be 6 charter';
-                          //     }
-                          //     return '';
-                          //   },
-                          // ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                             child: TextFormField(
@@ -246,15 +203,6 @@ class _SignUpState extends State<SignUp> {
                           const TextTitle(
                             title: 'D.O.P',
                           ),
-                          // RepeatTextField(
-                          //   hint: 'D.O.B',
-                          //   controller: dobC,
-                          //   validator: (value) {
-                          //     if (value!.isEmpty) {
-                          //       return 'Date of Bired is Empty';
-                          //     }
-                          //     return '';
-                          //   },
                           // ),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -312,10 +260,6 @@ class _SignUpState extends State<SignUp> {
                       const Text('Already have an account? '),
                       TextButton(
                         onPressed: widget.onClick,
-                        // onPressed: () {
-                        //   Navigator.push(context,
-                        //       MaterialPageRoute(builder: (_) => SignIn()));
-                        // },
                         child: const Text(
                           'Sign in',
                           style: TextStyle(
@@ -353,7 +297,7 @@ class _SignUpState extends State<SignUp> {
               () => isSigning = false,
             );
             Navigator.push(
-                context, MaterialPageRoute(builder: (_) => DashBord()));
+                context, MaterialPageRoute(builder: (_) => MyHomePage()));
           });
           // }
         } on FirebaseAuthException catch (e) {
