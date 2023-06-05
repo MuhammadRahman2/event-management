@@ -1,0 +1,214 @@
+import 'package:event/screen/qr_scanner.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import '../widgets/container_button.dart';
+import '../widgets/dropdown_textediting.dart';
+import '../widgets/circle_container.dart';
+import '../widgets/repeat_textfield.dart';
+
+class ConfirmSeat extends StatefulWidget {
+  final String nodeId;
+  ConfirmSeat({super.key, required this.nodeId});
+  @override
+  State<ConfirmSeat> createState() => _ConfirmSeatState();
+}
+
+class _ConfirmSeatState extends State<ConfirmSeat> {
+  final transationIdC = TextEditingController();
+  String paymentData = "";
+  // const ConfirmSeat({super.key});
+  String? dropDownValue;
+  String? postCateg = 'post categor';
+
+  void generateQRCode() {
+    setState(() {
+      paymentData = firebaseAuth.currentUser!.uid;
+    });
+  }
+
+  // List<Object> product = ['10/17/[PMS]'];
+  // List<Object> product2 = ['1-PMS (General Quota)'];
+  String dropdownValue = '10/17/[PMS]';
+  List<dynamic> dates = ['10/17/[PMS]', '10/18/[PMS]', '10/19/[PMS]'];
+
+  String postSerialInit = '1-PMS(General Quota)';
+  List<dynamic> PostSerialList = [
+    '1-PMS(General Quota)',
+    '1-PMS(General)',
+  ];
+
+  String postCategoryInit = 'PMS';
+  List<dynamic> postCategoryList = [
+    'PMS',
+    'DMS',
+  ];
+
+  String peymentInit = 'tenelor EasyPaise';
+  List<dynamic> peymentOptionList = [
+    'tenelor EasyPaise',
+    'Jazz JazzCash',
+  ];
+
+  // String transactionInit = 'tenelor EasyPaise';
+  // List<dynamic> peymentOptionList = [
+  //   'tenelor EasyPaise',
+  //   'Jazz JazzCash',
+  // ];
+  final firebaseAuth = FirebaseAuth.instance;
+  final databaseReference = FirebaseDatabase.instance.ref();
+
+  Future<void> sendPaymentDataToFirebase() async {
+    databaseReference
+        .child('user')
+        .child(widget.nodeId)
+        .child(firebaseAuth.currentUser!.uid)
+        .set({
+      'uId': firebaseAuth.currentUser!.uid,
+      'peymet_at': peymentInit,
+      'post_category': postCategoryInit,
+      'post_serail No': postSerialInit,
+      'transationId': transationIdC.text
+    }).then((value) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data is Add'),),);
+    });
+  }
+
+  @override
+  void dispose() {
+    transationIdC.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Stack(children: [
+          const CirlceContainer(),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+              
+                const Align(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 30,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'Check Out',
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(60, 195, 240, 1)),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  decoration: BoxDecoration(border: Border.all(width: 0.6)),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                          '''Select the advertisement, Post and enter Transaction Information'''),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text('Advertisement'),
+                      DropDownTextEditing(
+                          initValue: dropdownValue, ListValue: dates),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text('Post Serial No and Title'),
+                      DropDownTextEditing(
+                        initValue: postSerialInit,
+                        ListValue: PostSerialList,
+                      ),
+                      const SizedBox(height: 10),
+                      const Text('Post Category'),
+                      DropDownTextEditing(
+                          initValue: postCategoryInit,
+                          ListValue: postCategoryList),
+                      const SizedBox(height: 10),
+                      const Text('Peyment at'),
+                      DropDownTextEditing(
+                        initValue: peymentInit,
+                        ListValue: peymentOptionList,
+                      ),
+                      const SizedBox(height: 10),
+                      const Text('Transation ID'),
+                      RepeatTextField(
+                        hint: 'Transation id',
+                        controller: transationIdC,
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green),
+                          onPressed: () {
+                    sendPaymentDataToFirebase();
+                          },
+                          child: const Text('Apply'))
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Column(
+                    children: [
+                      const Text('Rs: 600'),
+                      const Text(
+                        'pay 3 Bills every months, Absolutely Free ❗',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(200, 40),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25)),
+                              backgroundColor: Colors.green),
+                          onPressed: () {},
+                          child: const Text('Pay Now'))
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                ContainerButton(
+                  colors: const Color.fromRGBO(60, 195, 240, 1),
+                  onTap: () {
+                    generateQRCode();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => QrScanner(paymentData: paymentData),
+                      ),
+                    );
+                  },
+                  title: 'Confirm',
+                ),
+              ],
+            ),
+          )
+        ]),
+      ),
+    );
+  }
+}
